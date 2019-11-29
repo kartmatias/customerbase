@@ -26,8 +26,6 @@ object FormEmail: TFormEmail
     Color = clGrayText
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -27
-    ExplicitWidth = 649
     object Label1: TLabel
       AlignWithMargins = True
       Left = 4
@@ -43,8 +41,6 @@ object FormEmail: TFormEmail
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitLeft = 1
-      ExplicitTop = 1
       ExplicitWidth = 405
       ExplicitHeight = 57
     end

@@ -139,12 +139,10 @@ object FormClientEdit: TFormClientEdit
     Color = clGrayText
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -325
-    ExplicitWidth = 964
     DesignSize = (
       649
       102)
-    object Button4: TButton
+    object btnFechar: TButton
       Left = 482
       Top = 5
       Width = 160
@@ -159,8 +157,7 @@ object FormClientEdit: TFormClientEdit
       ParentFont = False
       TabOrder = 0
       WordWrap = True
-      OnClick = Button4Click
-      ExplicitLeft = 797
+      OnClick = btnFecharClick
     end
     object BtnSalvar: TButton
       Left = 8
@@ -290,6 +287,7 @@ object FormClientEdit: TFormClientEdit
     DataField = 'Pais'
     DataSource = FormClientView.dtsCliente
     TabOrder = 14
+    OnExit = DBEdit12Exit
   end
   object DBEdit13: TDBEdit
     Left = 449

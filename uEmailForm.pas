@@ -80,9 +80,11 @@ begin
 
     FConfigEmail.Host          := 'smtp.gmail.com';
     FConfigEmail.Port          := 587;
+
     FConfigEmail.FromAddress   := 'contadogmail@gmail.com';
     FConfigEmail.UserName      := 'contadogmail@gmail.com';
     FConfigEmail.Password      := 'INFORME_A_SENHA';
+
     FConfigEmail.Autentica  := True;
     FConfigEmail.ModoSeguro := True;
     FConfigEmail.VersaoSSL  := 'sslvTLSv1';

@@ -11,7 +11,7 @@ uses
 type
   TFormClientEdit = class(TForm)
     PnlTopMenu: TPanel;
-    Button4: TButton;
+    btnFechar: TButton;
     DBText1: TDBText;
     DBEdit1: TDBEdit;
     Label1: TLabel;
@@ -46,11 +46,12 @@ type
     RESTClientVia: TRESTClient;
     RESTRequestCEP: TRESTRequest;
     RESTResponseCEP: TRESTResponse;
-    procedure Button4Click(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BtnSalvarClick(Sender: TObject);
     procedure DBEdit8Exit(Sender: TObject);
     procedure DBEdit5Exit(Sender: TObject);
+    procedure DBEdit12Exit(Sender: TObject);
   private
     { Private declarations }
     Procedure BuscaCep(pCepCode: String);
@@ -128,11 +129,19 @@ begin
 
 end;
 
-procedure TFormClientEdit.Button4Click(Sender: TObject);
+procedure TFormClientEdit.btnFecharClick(Sender: TObject);
 begin
   if dmMainMod.TbCliente.State in [dsEdit, dsInsert] then
     dmMainMod.TbCliente.Cancel;
   Close;
+end;
+
+procedure TFormClientEdit.DBEdit12Exit(Sender: TObject);
+begin
+  if btnSalvar.Enabled then
+    btnSalvar.SetFocus
+  else
+    btnFechar.SetFocus;
 end;
 
 procedure TFormClientEdit.DBEdit5Exit(Sender: TObject);
@@ -171,6 +180,7 @@ begin
       BtnSalvar.Enabled := True;
       //dmMainMod.TbCliente.Edit;
     end;
+  DBEdit1.SetFocus;
 end;
 
 Function TFormClientEdit.EmailValido(const Value: string): Boolean;
