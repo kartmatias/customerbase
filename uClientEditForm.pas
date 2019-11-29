@@ -50,9 +50,11 @@ type
     procedure FormShow(Sender: TObject);
     procedure BtnSalvarClick(Sender: TObject);
     procedure DBEdit8Exit(Sender: TObject);
+    procedure DBEdit5Exit(Sender: TObject);
   private
     { Private declarations }
     Procedure BuscaCep(pCepCode: String);
+    function EmailValido(const Value: string): Boolean;
   public
     { Public declarations }
     FStatus : String;
@@ -65,7 +67,7 @@ implementation
 
 {$R *.dfm}
 
-uses uDataForm, uClientViewForm;
+uses uDataForm, uClientViewForm, uEmailForm;
 
 procedure TFormClientEdit.BtnSalvarClick(Sender: TObject);
 begin
@@ -74,6 +76,11 @@ begin
   else if dmMainMod.TbCliente.State in [dsEdit, dsInsert] then
     dmMainMod.TbCliente.Post;
   BtnSalvar.Enabled := False;
+
+  if FStatus = 'I' then
+    begin
+      EnviarEmail;
+    end;
 end;
 
 procedure TFormClientEdit.BuscaCep(pCepCode: String);
@@ -93,7 +100,7 @@ begin
    //RESTRequestCEP.Params[1].Value := cepfmt;
    RESTRequestCEP.Execute;
    jsonRet := RESTResponseCEP.JSONValue;
-   ShowMessage( jsonRet.ToString );
+   //ShowMessage( jsonRet.ToString );
 
   if dmMainMod.TbCliente.State in [dsEdit, dsInsert] then
     begin
@@ -128,6 +135,14 @@ begin
   Close;
 end;
 
+procedure TFormClientEdit.DBEdit5Exit(Sender: TObject);
+begin
+  if not EmailValido(dmMainMod.TbCliente.FieldByName('Email').AsString) then
+    begin
+      raise Exception.Create('Informe um email válido');
+    end;
+end;
+
 procedure TFormClientEdit.DBEdit8Exit(Sender: TObject);
 begin
   if dmMainMod.TbCliente.FieldByName('Cep').AsString<>'' then
@@ -156,6 +171,35 @@ begin
       BtnSalvar.Enabled := True;
       //dmMainMod.TbCliente.Edit;
     end;
+end;
+
+Function TFormClientEdit.EmailValido(const Value: string): Boolean;
+  function CheckAllowed(const s: string): Boolean;
+  var
+    i: Integer;
+  begin
+    Result := False;
+    for i := 1 to Length(s) do
+      if not(s[i] in ['a' .. 'z', 'A' .. 'Z', '0' .. '9', '_', '-', '.']) then
+        Exit;
+    Result := true;
+  end;
+var
+  i: Integer;
+  NamePart, ServerPart: string;
+begin
+  Result := False;
+  i := Pos('@', Value);
+  if i = 0 then
+    Exit;
+  NamePart := Copy(Value, 1, i - 1);
+  ServerPart := Copy(Value, i + 1, Length(Value));
+  if (Length(NamePart) = 0) or ((Length(ServerPart) < 5)) then
+    Exit;
+  i := Pos('.', ServerPart);
+  if (i = 0) or (i > (Length(ServerPart) - 2)) then
+    Exit;
+  Result := CheckAllowed(NamePart) and CheckAllowed(ServerPart);
 end;
 
 end.

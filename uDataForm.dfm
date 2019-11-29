@@ -18,4 +18,8 @@ object dmMainMod: TdmMainMod
     Left = 48
     Top = 32
   end
+  object FDStanStorageXMLLink1: TFDStanStorageXMLLink
+    Left = 72
+    Top = 184
+  end
 end

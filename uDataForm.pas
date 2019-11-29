@@ -7,12 +7,13 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait, Data.DB,
-  FireDAC.Comp.Client, FireDAC.Comp.DataSet;
+  FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Stan.StorageXML;
 
 type
   TdmMainMod = class(TDataModule)
     TbCliente: TFDMemTable;
     FDConnection1: TFDConnection;
+    FDStanStorageXMLLink1: TFDStanStorageXMLLink;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -68,7 +69,8 @@ begin
 
 
   TbCliente.Open;
-
+  TStringField(TbCliente.FieldByName('Cpf')).EditMask :=  '999.999.999-99;0;_';
+  TStringField(TbCliente.FieldByName('Cep')).EditMask :=  '99.999-999;0;_';
 end;
 
 procedure TdmMainMod.DataModuleCreate(Sender: TObject);

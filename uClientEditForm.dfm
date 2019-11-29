@@ -221,9 +221,11 @@ object FormClientEdit: TFormClientEdit
     Top = 306
     Width = 280
     Height = 27
+    CharCase = ecLowerCase
     DataField = 'Email'
     DataSource = FormClientView.dtsCliente
     TabOrder = 5
+    OnExit = DBEdit5Exit
   end
   object DBEdit6: TDBEdit
     Left = 17
