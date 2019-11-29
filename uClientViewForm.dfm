@@ -1,0 +1,141 @@
+object FormClientView: TFormClientView
+  Left = 0
+  Top = 0
+  Caption = 'Lista de Clientes'
+  ClientHeight = 631
+  ClientWidth = 964
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PnlTopMenu: TPanel
+    Left = 0
+    Top = 0
+    Width = 964
+    Height = 102
+    Align = alTop
+    BevelOuter = bvLowered
+    Color = clGrayText
+    ParentBackground = False
+    TabOrder = 0
+    DesignSize = (
+      964
+      102)
+    object BtnCadastro: TButton
+      Left = 8
+      Top = 6
+      Width = 160
+      Height = 90
+      Caption = 'Incluir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      WordWrap = True
+      OnClick = BtnCadastroClick
+    end
+    object Button1: TButton
+      Left = 169
+      Top = 5
+      Width = 160
+      Height = 90
+      Caption = 'Alterar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
+      WordWrap = True
+      OnClick = Button1Click
+    end
+    object Button2: TButton
+      Left = 331
+      Top = 6
+      Width = 160
+      Height = 90
+      Caption = 'Excluir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      WordWrap = True
+      OnClick = Button2Click
+    end
+    object Button3: TButton
+      Left = 493
+      Top = 5
+      Width = 160
+      Height = 90
+      Caption = 'Imprimir'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 3
+      WordWrap = True
+      OnClick = Button3Click
+    end
+    object Button4: TButton
+      Left = 797
+      Top = 5
+      Width = 160
+      Height = 90
+      Anchors = [akTop, akRight]
+      Caption = 'Fechar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 4
+      WordWrap = True
+      OnClick = Button4Click
+    end
+  end
+  object DBGridCliente: TDBGrid
+    AlignWithMargins = True
+    Left = 3
+    Top = 105
+    Width = 958
+    Height = 523
+    Align = alClient
+    DataSource = dtsCliente
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -16
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = [fsBold]
+  end
+  object dtsCliente: TDataSource
+    DataSet = dmMainMod.TbCliente
+    Left = 848
+    Top = 296
+  end
+end
