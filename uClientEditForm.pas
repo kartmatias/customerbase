@@ -92,18 +92,20 @@ procedure TFormClientEdit.BuscaCep(pCepCode: String);
   cepfmt = 'json';
  var
   jsonRet : TJSONValue;
+  s : string;
 begin
-   RESTClientVia.Accept  := 'application/json, text/plain; q=0.9, text/html;q=0.8,';
-   RESTClientVia.AcceptCharset := 'UTF-8, *;q=0.8';
-   RESTClientVia.BaseURL := cepurlbas;
-   RESTRequestCEP.Resource := cepurlres+'/'+pCepCode+'/'+cepfmt+'/';
-   //RESTRequestCEP.Params[0].Value := pCepCode;
-   //RESTRequestCEP.Params[1].Value := cepfmt;
-   RESTRequestCEP.Execute;
-   jsonRet := RESTResponseCEP.JSONValue;
-   //ShowMessage( jsonRet.ToString );
+  RESTClientVia.Accept  := 'application/json, text/plain; q=0.9, text/html;q=0.8,';
+  RESTClientVia.AcceptCharset := 'UTF-8, *;q=0.8';
+  RESTClientVia.BaseURL := cepurlbas;
+  RESTRequestCEP.Resource := cepurlres+'/'+pCepCode+'/'+cepfmt+'/';
+  //RESTRequestCEP.Params[0].Value := pCepCode;
+  //RESTRequestCEP.Params[1].Value := cepfmt;
+  RESTRequestCEP.Execute;
+  jsonRet := RESTResponseCEP.JSONValue;
 
-  if dmMainMod.TbCliente.State in [dsEdit, dsInsert] then
+  if not( jsonRet.TryGetValue( 'logradouro', s )) then
+    ShowMessage( 'Logradouro/CEP não localizado: ('+s+')' )
+  else if dmMainMod.TbCliente.State in [dsEdit, dsInsert] then
     begin
        try
          dmMainMod.TbCliente.FieldByName('Logradouro').AsString := jsonRet.GetValue<String>('logradouro');
